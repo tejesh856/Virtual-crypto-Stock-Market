@@ -108,7 +108,7 @@ const LeaderBoard = () => {
                       <div className="user-score">
                         {Number(user.totalProfit).toFixed(2)}
                       </div>
-                      <div className="user-username">{user.userEmail}</div>
+                      
                     </div>
                   </div>
                 </div>
