@@ -21,8 +21,14 @@ export default function Datacontext({ children }) {
     const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${symbol}&tsyms=USD&api_key=${apiKey}`;
     const res = await fetch(url);
     const responsedata = await res.json();
-    if (res.ok) {
-      const data = responsedata.RAW[symbol].USD;
+    const symbolUpperCase = symbol.toUpperCase();
+    if (
+      res.ok &&
+      responsedata.RAW &&
+      responsedata.RAW[symbolUpperCase] &&
+      responsedata.RAW[symbolUpperCase].USD
+    ) {
+      const data = responsedata.RAW[symbolUpperCase].USD;
       const details = {
         open: data.OPENDAY,
         high: data.HIGHDAY,
@@ -34,6 +40,8 @@ export default function Datacontext({ children }) {
         imageurl: `https://www.cryptocompare.com${data.IMAGEURL}`,
       };
       return details;
+    } else {
+      return null;
     }
   };
   const [confirmshow, setconfirmshow] = useState(false);
